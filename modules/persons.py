@@ -19,7 +19,7 @@ class Person(object):
         confirm = input("\n\nDesea guardar los datos de este ciudadano?(y/n): ").lower()
 
         if confirm == "y":
-            exist = read.search(self.persons,cedula)
+            exist = read.exist(self.persons,cedula)
 
             if exist == 0:
                 self.handler.creater(cedula,nombre,estado,municipio,parroquia,centro,direccion)
