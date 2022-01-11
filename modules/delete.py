@@ -8,8 +8,8 @@ def delete(handler,list_persons,pk):
         print("\n No se han encontrado resultados para su busqueda")
 
     else: 
-        print("\nCliente seleccionado:\n",person)
-        option = input("\nEsta seguro que desea eliminar este cliente y/n:").lower().strip()
+        print("\nCiudadano seleccionado:\n",person)
+        option = input("\nEsta seguro que desea eliminar este ciudadano de la base de archivos local y/n:").lower().strip()
 
         people = [person for person in list_persons if person["cedula"] != pk]
 
@@ -18,8 +18,8 @@ def delete(handler,list_persons,pk):
             list_persons = people
             handler.writer(list_persons)
             sleep(2)
-            print("\nCliente eliminado:\n")
+            print("\nEl ciudadano eliminado:\n")
 
         else:
-            print("\nEl cliente no ha sido eliminado\n")
+            print("\nEl ciudadano no ha sido eliminado\n")
    
