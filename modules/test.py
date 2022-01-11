@@ -1,23 +1,29 @@
 import random
 from time import sleep
 from selenium import webdriver
+import handler_scrapping
+
 
 driver = webdriver.Chrome('../chromedriver.exe')
 driver.get('http://www.cne.gob.ve/web/index.php')
 
-print("\n\nPagina obtenida\n\n")
-sleep(15)
+print("\n\nPagina \n\n")
+sleep(1)
 
-register = driver.find_elements_by_xpath('//td[@align="left"]')
-print("\n\nEste es tu registro: \n\n", register," ",type(register))
+while True:
 
-lista = [] 
+    E = input("\n\nUsted es extranjero?(y/n): ").lower()
 
-for i in range(1,13,2):
-    print(i)
-    date_person = register[i].text
-    lista.append(date_person)
-    print(lista)
+    if E == "y":
+        button_n = driver.find_element_by_xpath('//option[@value="E"]').click()
+        handler_scrapping.handler_scrapping(driver)
+        
+    elif E == "n":
+        button_n = driver.find_element_by_xpath('//option[@value="V"]').click()
+        handler_scrapping.handler_scrapping(driver)
 
+    elif E == "q":
+        break
 
-    
+    else:
+        print("Opcion invalida")

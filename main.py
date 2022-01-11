@@ -1,4 +1,4 @@
-from modulos import interface
+from modules import interface
 from time import sleep
 
 def main():

@@ -1,7 +1,12 @@
-from modulos import clients,create, handler_fields
+from modules import persons,donwload,handler_files
+from time import sleep
+from selenium import webdriver
+import random
 
-data_base = ["id","code","name","last_name","age","email","enterprise","position","company_years"]
-field_name = "Names.csv"
+
+
+data_base = ["cedula","nombre","estado","municipio","parroquia","centro","direccion"]
+file_name = "base_de_datos.csv"
 
 def interface():
     """INSTRUCCIONES:
@@ -21,12 +26,6 @@ def interface():
 
         *client: Muestra la informacion del cliente una vez indicado el id del mismo
 
-    
-    Introduzca U para editar a un cliente el cual se debe seleccionar introduciendo el id
-    
-
-    Introduzca D para eliminar a un cliente el cual se debe seleccionar introduciendo el id
-
     REGLAS:
     
     Los clientes deben tener una edad comprendida entre 18 y 70 años, con una trayectoria laboral maxima de 52 años
@@ -41,25 +40,28 @@ def interface():
     
     
     """
-    while True:
-        handler = handler_fields.Handler_fields(field_name,data_base)
-        info_client = create.Field_exist(field_name,data_base)
-        cliente = clients.Client(handler,info_client)
+
+    driver = webdriver.Chrome('./chromedriver.exe')
+    driver.get('http://www.cne.gob.ve/web/index.php')
+    print("\n\nPagina lista\n\n")
+    sleep(random.uniform(1.0,2.0))
+
+    while True: 
+        handler = handler_files.Handler_fields(file_name,data_base)
+        info_client = donwload.Field_exist(file_name,data_base)
+        person = persons.Person(handler,info_client,driver)
         module = input('\nIndique la modalidad o presione "q" para escapar:\n')
         module = module.upper().strip()
 
         if module == 'C':
-            cliente.create()            
+            person.create()            
 
         elif module == 'R':
-            cliente.read()
-
-        elif module == 'U':
-            cliente.update()
+            person.read()
 
         elif module == 'D':
-            cliente.delete()
-        
+            person.delete()
+
         elif module == 'Q':
             break
 

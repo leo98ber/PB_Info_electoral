@@ -9,7 +9,7 @@ print("\n\nPagina obtenida\n\n")
 sleep(15)
 
 register = driver.find_elements_by_xpath('//td[@align="left"]')
-print("\n\nEste es tu registro: \n\n", register," ",type(register))
+print("\n\nEste es tu registro: \n\n", register," ",len(register))
 
 lista = [] 
 

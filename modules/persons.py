@@ -1,70 +1,66 @@
-from modulos import delete, read,update,create,errors
-from time import sleep, time
+from os import error
+from modules import donwload,errors,read,delete
+from time import sleep,time
 
-class Client(object):
+class Person(object):
     
-    def __init__(self,handler,info_client):
+    def __init__(self,handler,info_person,driver):
+        self.driver = driver
         self.handler = handler
-        self.info_client = info_client
-        self.info_client.exist()
-        self.clients = self.handler.reader()
+        self.info_person = info_person
+        self.info_person.exist()
+        self.persons = self.handler.reader()
 
+    @errors.value_error
     @errors.error_decorate
     @errors.type_error
     def create(self):
-        print("\nIntroduzca los datos solicitados para crear el cliente\n")
-        sleep(1)
-        ident,code,name,last_name,age,email,enterprise,position,company_years= self.info_client.in_info()
-        self.handler.creater(ident,code,name,last_name,age,email,enterprise,position,company_years)
+        cedula,nombre,estado,municipio,parroquia,centro,direccion = donwload.donwload_person(self.driver)
+        confirm = input("\n\nDesea guardar los datos de este ciudadano?(y/n): ").lower()
+
+        if confirm == "y":
+            exist = read.search(self.persons,cedula)
+
+            if exist == 0:
+                self.handler.creater(cedula,nombre,estado,municipio,parroquia,centro,direccion)
+                print("Se ha guardado su busqueda")
+            else:
+                print("No se pudo crear el cliente debido a que este ya existe en la base de datos local")
+
+            
+        elif confirm == "n":
+            print("No se ha guarado la busqueda")
+            
+        else: 
+            print("Opcion invalida,No se ha guarado la busqueda")
+
 
     @errors.tag_doesnt_exist
     @errors.client_doesnt_exist
     def read(self):
         option = input("\nIndique que desea visualizar:\n").lower().strip()
 
-        if option == "list_clients":
-            print("\nLista de clientes\n")
-            for client in self.clients:
-                print("\n",client)
+        if option == "list_persons":
+            print("\nLista de ciudadanos\n")
+            for person in self.persons:
+                print("\n",person)
 
-        elif option == "filter_clients":
+        elif option == "filter_persons":
             tag = input("\nIntroduzca un tag para filtrar: \n").lower().strip()
             keyword = input("\nIntroduzca informacion clave para la busqueda\n").lower().strip()
-            read.search(self.clients,keyword,tag)
+            read.filter(self.persons,keyword,tag)
 
-        elif option == "client":
-            pk = int(input("\nIndique el id del cliente que desea visualizar:\n"))
-            pk = pk-1
-            client = self.clients[pk]
-            print(client)
-
-        elif option == "date_client":
-            pk = int(input("\nIndique el id del cliente que desea visualizar:\n"))
-            pk = pk-1
-            client = self.clients[pk]
-            ident,code,name,last_name,age,email,enterprise,position,company_years = client.values()
-            read.option_read(ident,code,name,last_name,age,email,enterprise,position,company_years)
+        elif option == "person":
+            pk = input("\nIndique la cedula del ciudadano que desea visualizar\n") 
+            read.search(self.persons,pk)
 
         else:
             print("\nError usted introdujo una opcion invalida intente de nuevo\n")
 
 
-    @errors.type_error
-    @errors.error_decorate
-    @errors.client_doesnt_exist
-    def update(self):
-        pk = int(input("\nIndique el id del cliente que desea modificar: \n"))
-        pk = pk-1
-        update.option_update(self.handler,self.clients,pk)
 
-    @errors.type_error
+
     @errors.client_doesnt_exist
     def delete(self): 
-        pk = int(input("\nIndique el id del cliente que desea eliminar:\n"))
-        pk = pk-1
-        delete.delete(self.handler,self.clients,pk)
-
-
-        
-
-
+        pk = input("\nIndique la cedula del ciudadano que desea eliminar de la base de datos local\n") 
+        delete.delete(self.handler,self.persons,pk)
