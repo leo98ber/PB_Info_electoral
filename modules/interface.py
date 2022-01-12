@@ -40,7 +40,9 @@ def interface():
     
     """
 
-    driver = webdriver.Chrome('./chromedriver.exe')
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    driver = webdriver.Chrome('./chromedriver.exe',chrome_options=options)
     driver.get('http://www.cne.gob.ve/web/index.php')
     print("\n\nPagina lista\n\n")
     sleep(random.uniform(1.0,2.0))
