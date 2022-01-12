@@ -31,7 +31,7 @@ def handler_scrapping(driver):
         date_person = date.text
         person_dates.append(date_person)
 
-    for i in range(1,15,2):
+    for i in range(1,11,2):
         dates.append(person_dates[i])
 
     print("\n\nDATOS\n\n",dates)

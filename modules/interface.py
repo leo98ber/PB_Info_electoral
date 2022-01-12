@@ -5,12 +5,14 @@ import random
 
 
 
-data_base = ["cedula","nombre","estado","municipio","parroquia","centro","direccion"]
+data_base = ["cedula","nombre","estado","municipio","parroquia"]
 file_name = "base_de_datos.csv"
 
 def interface():
 
     """INSTRUCCIONES:
+
+
     
     Introduzca C para registrar una persona de la base de datos del CNE en la base de datos (o base de archivos), debera ingresar el 
     numero de cedula como un numero entero y este software se encara de encontrar la informacion correspondiente al documento de
@@ -33,7 +35,7 @@ def interface():
 
     NOTA: Se resalta la importancia de indicar la cedula identidad de la forma V-xxxxxx en las funciones locales del software, a excepcion
     de cuando se extrae datos de la pagina que solo se permiten formatos int (enteros). La razon es por que el sistema del CNE entrega los 
-    datos de esta forma, por lo cual no solo aplica con el documento de identidad, si no tambien para los otros items en el caso de que se quieran
+    datos de esta forma. Esto no solo aplica con el documento de identidad, si no tambien para los otros items en el caso de que se quieran
     usar como filtro deberan tener la misma forma que en el sistema del CNE
     
     """

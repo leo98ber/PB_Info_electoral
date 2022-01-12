@@ -1,7 +1,7 @@
 from time import sleep
 
 def delete(handler,list_persons,pk):
-    person = [(print("\n",person),person) for person in list_persons if person["cedula"] == pk]
+    person = [person for person in list_persons if person["cedula"] == pk]
     not_finded = len(person)
 
     if not_finded == 0:
@@ -18,7 +18,7 @@ def delete(handler,list_persons,pk):
             list_persons = people
             handler.writer(list_persons)
             sleep(2)
-            print("\nEl ciudadano eliminado:\n")
+            print("\nEl ciudadano ha sido eliminado:\n")
 
         else:
             print("\nEl ciudadano no ha sido eliminado\n")

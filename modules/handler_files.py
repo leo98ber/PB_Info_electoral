@@ -16,18 +16,16 @@ class Handler_fields(object):
         return dates
 
 
-    def creater(self,cedula,nombre,estado,municipio,parroquia,centro,direccion):  
+    def creater(self,cedula,nombre,estado,municipio,parroquia):  
         temp = []
 
-        ["cedula","nombre","estado","municipio","parroquia","centro","direccion"]
+        ["cedula","nombre","estado","municipio","parroquia"]
         dates = [{ 
                 'cedula':cedula,
                 'nombre':nombre,
                 'estado':estado,
                 'municipio':municipio,
-                'parroquia':parroquia,
-                'centro':centro,
-                'direccion':direccion,
+                'parroquia':parroquia
                 }]
 
         with open(self.field_name , 'a') as archivo: 

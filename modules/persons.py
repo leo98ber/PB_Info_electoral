@@ -15,14 +15,14 @@ class Person(object):
     @errors.error_decorate
     @errors.type_error
     def create(self):
-        cedula,nombre,estado,municipio,parroquia,centro,direccion = donwload.donwload_person(self.driver)
+        cedula,nombre,estado,municipio,parroquia = donwload.donwload_person(self.driver)
         confirm = input("\n\nDesea guardar los datos de este ciudadano?(y/n): ").lower()
 
         if confirm == "y":
             exist = read.exist(self.persons,cedula)
 
             if exist == 0:
-                self.handler.creater(cedula,nombre,estado,municipio,parroquia,centro,direccion)
+                self.handler.creater(cedula,nombre,estado,municipio,parroquia)
                 print("Se ha guardado su busqueda")
             else:
                 print("No se pudo crear el cliente debido a que este ya existe en la base de datos local")
@@ -51,7 +51,8 @@ class Person(object):
             read.filter(self.persons,keyword,tag)
 
         elif option == "person":
-            pk = input("\nIndique la cedula del ciudadano que desea visualizar\n") 
+            pk = input("\nIndique la cedula del ciudadano que desea visualizar: \n").upper().strip() 
+            print(pk)
             read.search(self.persons,pk)
 
         else:
@@ -62,5 +63,5 @@ class Person(object):
 
     @errors.client_doesnt_exist
     def delete(self): 
-        pk = input("\nIndique la cedula del ciudadano que desea eliminar de la base de datos local\n") 
+        pk = input("\nIndique la cedula del ciudadano que desea eliminar de la base de datos local\n").upper().strip() 
         delete.delete(self.handler,self.persons,pk)
